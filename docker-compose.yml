@@ -1,0 +1,22 @@
+version: '3'
+services:
+  webapi:
+    build: .
+    ports:
+      - "5000:5000"
+      - "5001:5001"
+    environment:
+      - ASPNETCORE_HTTP_PORT=https://+:5001
+      - ASPNETCORE_URLS=http://+:5000
+    depends_on:
+      - db
+    entrypoint: [ "/bin/sh" , "-c", "dotnet ef database update --project /source/src/TrilhaApiDesafio.csproj && dotnet /app/TrilhaApiDesafio.dll"]
+    restart: always
+    container_name: webapi
+  db:
+    container_name: trilha_net_desafio_db
+    image: mcr.microsoft.com/mssql/server:2019-CU8-ubuntu-16.04
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=SenhaSuperSegura@123
+  
