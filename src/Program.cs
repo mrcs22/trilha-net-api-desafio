@@ -15,9 +15,15 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+//expose endpoint using lowercase urls
+
+
+builder.Services.AddRouting(options => options.LowercaseUrls = true);
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+
 
     app.UseSwagger();
     app.UseSwaggerUI();
